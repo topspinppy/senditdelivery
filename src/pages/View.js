@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import TextField from 'material-ui/TextField'
-import DropDownMenu from 'material-ui/DropDownMenu'
-import MenuItem from 'material-ui/MenuItem'
 import styled from 'styled-components'
+import { Input } from 'react-materialize'
 import imgcar from '../img/car.jpg'
 
 const Formatted = styled.div`
@@ -15,7 +12,7 @@ const Formatted = styled.div`
 `
 
 const NameProgram = styled.div`
-  position:absolute;
+  position:fixed;
   left: 0px;
   width:25.33%;
   height:100%;
@@ -45,7 +42,7 @@ const NameProgram = styled.div`
   }
 `
 const Manage = styled.div`
-  position:absolute;
+  position:fixed;
   center: 50px;
   width:50.33%;
   height:100%;
@@ -107,11 +104,19 @@ const Manage = styled.div`
   }
 `
 const ButtonLayout = styled.div`
-  position:absolute;
+  position:fixed;
   Right: 0px;
   width:25.33%;
   height:100%;
   background: #f2f2f2;
+`
+const Row = styled.div`
+  width:18.76rem;
+  height:4rem;
+`
+const InputWithStyled = styled(Input)`
+  margin-left: -13px;
+  width: 109%;
 `
 
 class View extends Component {
@@ -154,19 +159,26 @@ class View extends Component {
             </div>
             <div className='Article'>
               <div className='ColumnOne'>
-                <MuiThemeProvider>
-                  <TextField hintText='Hint Text' floatingLabelText='License Plate' floatingLabelFixed={true} /><br/>
-                  <DropDownMenu value={this.state.value} floatingLabelText='License Plate' onChange={this.handleChange}>
-                    <MenuItem value={1} primaryText='Never' />
-                    <MenuItem value={2} primaryText='Every Night' />
-                    <MenuItem value={3} primaryText='Weeknights' />
-                    <MenuItem value={4} primaryText='Weekends' />
-                    <MenuItem value={5} primaryText='Weekly' />
-                  </DropDownMenu>
-                </MuiThemeProvider>
+                <Row>
+                  <InputWithStyled label="License Plate" defaultValue="I am not editable"></InputWithStyled>
+                </Row>
+                <Row>
+                  <InputWithStyled label="Type" defaultValue="I am not editable"></InputWithStyled>
+                </Row>
+                <Row>
+                  <InputWithStyled label="Fuel Type" defaultValue="I am not editable"></InputWithStyled>
+                </Row>
               </div>
               <div className='ColumnTwo'>
-                gg
+                <Row>
+                  <InputWithStyled label="License Plate" defaultValue="I am not editable"></InputWithStyled>
+                </Row>
+                <Row>
+                  <InputWithStyled label="Type" defaultValue="I am not editable"></InputWithStyled>
+                </Row>
+                <Row>
+                  <InputWithStyled label="Fuel Type" defaultValue="I am not editable"></InputWithStyled>
+                </Row>
               </div>
             </div>
           </div>
