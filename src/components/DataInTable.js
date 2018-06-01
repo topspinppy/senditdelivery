@@ -81,15 +81,15 @@ class DataInTable extends Component {
                 <th className='actionfit'><Link to='/view'><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
               </tr>
               <tr>
-                <th scope='row'>1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <th className='actionfit'><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></th>
+                <th scope='row'><center>1</center></th>
+                <td><center>CPF</center></td>
+                <td><center>3กย-1121</center></td>
+                <td><center>6ล้อทึบ</center></td>
+                <td><center>Chill,Frozen,Ambient</center></td>
+                <td><center>24 ชม. (จ-ส)</center></td>
+                <td><center>395</center></td>
+                <td><center>1,900</center></td>
+                <th className='actionfit'><Link to='/view'><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
               </tr>
             </tbody>
           </Table>
