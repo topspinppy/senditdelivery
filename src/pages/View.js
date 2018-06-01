@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Input } from 'react-materialize'
 import imgcar from '../img/car.jpg'
 
 const Formatted = styled.div`
@@ -110,22 +109,16 @@ const ButtonLayout = styled.div`
   height:100%;
   background: #f2f2f2;
 `
-const Row = styled.div`
-  width:18.76rem;
-  height:4rem;
-`
-const InputWithStyled = styled(Input)`
-  margin-left: -13px;
-  width: 109%;
-`
+// const Row = styled.div`
+//   width:18.76rem;
+//   height:4rem;
+// `
+// const InputWithStyled = styled(Input)`
+//   margin-left: -13px;
+//   width: 109%;
+// `
 
 class View extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {value: 1}
-  }
-
-  handleChange = (event, index, value) => this.setState({value})
   render () {
     return (
       <Formatted>
@@ -159,26 +152,10 @@ class View extends Component {
             </div>
             <div className='Article'>
               <div className='ColumnOne'>
-                <Row>
-                  <InputWithStyled label="License Plate" defaultValue="I am not editable"></InputWithStyled>
-                </Row>
-                <Row>
-                  <InputWithStyled label="Type" defaultValue="I am not editable"></InputWithStyled>
-                </Row>
-                <Row>
-                  <InputWithStyled label="Fuel Type" defaultValue="I am not editable"></InputWithStyled>
-                </Row>
+                <p>test</p>
               </div>
               <div className='ColumnTwo'>
-                <Row>
-                  <InputWithStyled label="License Plate" defaultValue="I am not editable"></InputWithStyled>
-                </Row>
-                <Row>
-                  <InputWithStyled label="Type" defaultValue="I am not editable"></InputWithStyled>
-                </Row>
-                <Row>
-                  <InputWithStyled label="Fuel Type" defaultValue="I am not editable"></InputWithStyled>
-                </Row>
+                <p>test</p>
               </div>
             </div>
           </div>

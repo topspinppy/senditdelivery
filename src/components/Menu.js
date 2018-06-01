@@ -3,9 +3,19 @@ import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reac
 
 import styled from 'styled-components'
 
-const ButtonDropdownwithStyled = styled(ButtonDropdown)`
-  .dropdown-toggle {
+const AllCompanyDropdownwithStyled = styled(ButtonDropdown)`
+  .dropdown-toggle 
+  {
     border-radius: 0 !important;
+  }
+  .btn 
+  {
+    border-radius: 0px;
+    padding-right: 126px;
+  }
+  .btn-outline-secondary
+  {
+    margin-left: 8px;
   }
 `
 
@@ -17,25 +27,13 @@ const Headers = styled.div`
 `
 
 class Menu extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      dropdownOpen: false
-    }
-    this.toggle = this.toggle.bind(this)
-  }
-  toggle () {
-    this.setState({
-      dropdownOpen: true
-    })
-  }
   render () {
     return (
       <Headers>
         <div>
-          <ButtonDropdownwithStyled isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <AllCompanyDropdownwithStyled>
             <DropdownToggle caret color='warning'>
-              Button Dropdown
+              All Company
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header>Header</DropdownItem>
@@ -44,7 +42,7 @@ class Menu extends Component {
               <DropdownItem divider />
               <DropdownItem>Another Action</DropdownItem>
             </DropdownMenu>
-          </ButtonDropdownwithStyled>
+          </AllCompanyDropdownwithStyled>
         </div>
         <div>
           <button>
