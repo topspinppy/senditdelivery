@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import imgcar from '../img/car.jpg'
+import { Input, Row } from 'react-materialize'
 
 const Formatted = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   font-color:white;
+  input[type=text] 
+  {
+    border-bottom: 2px solid #fece41;
+  }
+  input[type=text]:focus:not([readonly])
+  {
+    border-bottom: 1px solid #fece41;
+    box-shadow: 0 1px 0 0 #fece41;
+  }
 }
 `
 
@@ -70,35 +80,23 @@ const Manage = styled.div`
     margin : 39px;
     margin-top: 10px ;
     margin-bottom: 96px ;
-    height: 99px;
-
+    height: 140px;
+    .row 
+    {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      margin-right: -1px;
+      margin-left: -11px;
+      margin-bottom: -8px;
+    }
     .ColumnOne {
       float: left;
-      
-      .Textfield {
-        display: block;
-        padding-top: 15px;
-        margin-bottom: 20px;
-
-        .textbox {
-          border: none;
-          border-bottom: 1px solid;
-        }
-      }
     }
     .ColumnTwo {
       float: left;
       right: 5px;
-      .Textfield {
-        display: block;
-        padding-top: 15px;
-        margin-bottom: 20px;
-
-        .textbox {
-          border: none;
-          border-bottom: 1px solid;
-        }
-      }
     }
   }
 `
@@ -109,16 +107,11 @@ const ButtonLayout = styled.div`
   height:100%;
   background: #f2f2f2;
 `
-// const Row = styled.div`
-//   width:18.76rem;
-//   height:4rem;
-// `
-// const InputWithStyled = styled(Input)`
-//   margin-left: -13px;
-//   width: 109%;
-// `
 
 class View extends Component {
+  state = {
+    name : 'test'
+  }
   render () {
     return (
       <Formatted>
@@ -126,7 +119,7 @@ class View extends Component {
           <div className='Header'>
             <h1>
               <b>
-                Edit Vehical
+                Edit Vehicle
               </b>
             </h1>
           </div>
@@ -151,12 +144,34 @@ class View extends Component {
               </div>
             </div>
             <div className='Article'>
-              <div className='ColumnOne'>
-                <p>test</p>
-              </div>
-              <div className='ColumnTwo'>
-                <p>test</p>
-              </div>
+              <Row>
+                <Input placeholder="." value="d" s={6} className='grid-example' label="License Plate" />
+                <Input s={6} type='select' label="Province" defaultValue='2'>
+                  <option value='1'>กรุงเทพ</option>
+                  <option value='2'>นนทบุรี</option>
+                  <option value='3'>ปราจีนบุรี</option>
+                </Input>
+              </Row>
+              <Row>
+                <Input s={6} type='select' label="Type" defaultValue='2'>
+                  <option value='1'>6 ล้อทึบ</option>
+                  <option value='2'>นนทบุรี</option>
+                  <option value='3'>ปราจีนบุรี</option>
+                </Input>
+                <Input s={6} type='select' label="Brand" defaultValue='2'>
+                  <option value='1'>6 ล้อทึบ</option>
+                  <option value='2'>นนทบุรี</option>
+                  <option value='3'>ปราจีนบุรี</option>
+                </Input>
+              </Row>
+              <Row>
+                <Input s={6} type='select' label="Fuel Type" defaultValue='2'>
+                  <option value='1'>6 ล้อทึบ</option>
+                  <option value='2'>นนทบุรี</option>
+                  <option value='3'>ปราจีนบุรี</option>
+                </Input>
+                <Input hidden s={6} />
+              </Row>
             </div>
           </div>
           <div>
@@ -166,8 +181,19 @@ class View extends Component {
                 <b>OWNER INFORMATION</b>
               </div>
             </div>
-            <div className='Article'>
-              text
+            <div className='Article' style={{ height : '4px' }}>
+              <Row>
+                <Input s={6} type='select' label="Type" defaultValue='2'>
+                  <option value='1'>6 ล้อทึบ</option>
+                  <option value='2'>นนทบุรี</option>
+                  <option value='3'>ปราจีนบุรี</option>
+                </Input>
+                <Input s={6} type='select' label="Brand" defaultValue='2'>
+                  <option value='1'>6 ล้อทึบ</option>
+                  <option value='2'>นนทบุรี</option>
+                  <option value='3'>ปราจีนบุรี</option>
+                </Input>
+              </Row>
             </div>
           </div>
           <div>
@@ -178,7 +204,14 @@ class View extends Component {
               </div>
             </div>
             <div className='Article'>
-              e
+              <Row>
+                <Input placeholder="" s={6} className='grid-example' label="Capacity (Cubic Meters)" />
+                <Input placeholder="" s={6} className='grid-example' label="Weight (Tons)" />
+              </Row>
+              <Row>
+                <Input placeholder="" s={6} className='grid-example' label="Cost / Km. (THB) " />
+                <Input hidden s={6} />
+              </Row>
             </div>
           </div>
         </Manage>

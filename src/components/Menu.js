@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Dropdown } from 'reactstrap'
 import { Link } from 'react-router'
 import styled from 'styled-components'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css'
+import Date from '../components/plugin/Date'
 
 const AllCompanyDropdownwithStyled = styled(ButtonDropdown)`
   .dropdown-toggle 
@@ -11,14 +15,14 @@ const AllCompanyDropdownwithStyled = styled(ButtonDropdown)`
   .btn 
   {
     border-radius: 0px;
-    padding-right: 126px;
+    padding-right: 110px;
   }
   .btn-outline-secondary
   {
     margin-left: 8px;
   }
-
-  .dropdown-toggle::after {
+  .dropdown-toggle::after 
+  {
     position: absolute;
     right: 7px;
     bottom: 15px;
@@ -34,10 +38,18 @@ const Headers = styled.div`
 
 class Menu extends Component {
   state = {
-    dropdownMenu: false
+    dropdownMenu: false,
+    startDate: moment()
   }
   ToggleMenu = () => {
-    this.setState({ dropdownMenu: !this.state.dropdownMenu })
+    this.setState({ 
+      dropdownMenu: !this.state.dropdownMenu 
+    })
+  }
+  handleChangeDate = (date) => {
+    this.setState({
+      startDate: date
+    });
   }
   render () {
     return (
@@ -57,16 +69,51 @@ class Menu extends Component {
           </AllCompanyDropdownwithStyled>
         </div>
         <div>
-          2
+          <DatePicker
+              customInput={<Date />}
+              selected={this.state.startDate}
+              onChange={this.handleChangeDate}
+          />
         </div>
         <div>
-          3
+          <Dropdown>
+            <DropdownToggle outline color='secondary'>
+              TYPE :
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
         <div>
-          4
+          <Dropdown>
+            <DropdownToggle outline color='secondary'>
+              CAPACITY :
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
         <div>
-          5
+          <Dropdown>
+            <DropdownToggle outline color='secondary'>
+              WEIGHT :
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+        <div>
+          <Dropdown>
+            <DropdownToggle outline color='secondary'>
+              SORT :
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
         <div>
           <Dropdown isOpen={this.state.dropdownMenu} toggle={this.ToggleMenu}>
