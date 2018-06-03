@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import imgcar from '../img/car.jpg'
 import { Input, Row } from 'react-materialize'
+import { Button } from 'reactstrap'
 
 const Formatted = styled.div`
   display: flex;
@@ -16,6 +17,22 @@ const Formatted = styled.div`
   {
     border-bottom: 1px solid #fece41;
     box-shadow: 0 1px 0 0 #fece41;
+  }
+  .input-field label {
+    color: #9e9e9e;
+    font-weight: bold;
+  }
+
+  .managebuttonsave {
+    margin-left: 28px;
+    width: 164px;
+    margin-right: 13px;
+    border-radius: inherit;
+  }
+  .managebuttoncancle {
+    width: 164px;
+    margin-right: 13px;
+    border-radius: inherit;
   }
 }
 `
@@ -106,6 +123,32 @@ const ButtonLayout = styled.div`
   width:25.33%;
   height:100%;
   background: #f2f2f2;
+
+  .row
+  {
+    display: flex;
+    flex-wrap: wrap;
+
+    .col {
+      float: left;
+      box-sizing: border-box;
+      padding: 0 .75rem;
+      min-height: 1px;
+      width:50%;
+    }
+  }
+
+  .Actions
+  {
+    margin: 63px;
+    margin-left: 29px;
+    margin-bottom: 0px;
+  }
+  .TimeText
+  {
+    margin: 29px;
+    margin-top: 19px;
+  }
 `
 
 class View extends Component {
@@ -216,7 +259,22 @@ class View extends Component {
           </div>
         </Manage>
         <ButtonLayout>
-          test
+          <div className='Row'>
+            <div className='Actions'>
+              <b>Action</b>
+            </div>
+          </div>
+          <div className='Row'>
+            <div className='TimeText'>
+              Last update: 14 Dec 2017 11:40 UTC+7
+            </div>
+          </div>
+          <div className='Row'>
+            <div className='Col'>
+              <Button color='warning' className='managebuttonsave'>SAVE</Button>
+              <Button className='managebuttoncancle'>CANCEL</Button>
+            </div>
+          </div>
         </ButtonLayout>
       </Formatted>
     )
