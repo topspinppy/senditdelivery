@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import imgcar from '../img/car.jpg'
 import { Input, Row } from 'react-materialize'
 import { Button } from 'reactstrap'
-import Http from 'axios'
+import axios from 'axios'
 
 const Formatted = styled.div`
   display: flex;
@@ -152,50 +152,59 @@ const ButtonLayout = styled.div`
   }
 `
 
-class View extends Component {
-  state = {
-    LicensePlate : '',
-    Province : '',
-    Type : '',
-    Brand : '',
-    FuelType : '',
-    Owner : '',
-    OwnerCompany : '',
-    Capacity : '',
-    Weight : '',
-    Cost : '',
-    Name : 'test',
-    HourCar : '',
-    Index : '',
-    Id : this.props.params.id,
-    Datafromapi : []
-  }
+class New extends Component {
 
-  componentDidMount () {
-    // const that = this
-    Http.get('http://localhost:5000/vehical/').then(res => {
-      let dfromapi = res.data[this.state.Id];
-      this.setState({ Datafromapi : dfromapi });
-      console.log(this.state.Datafromapi)
-    })
-  }
+
+  constructor() {
+    super();
+
+    var today = new Date(),
+        date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    this.state = {
+      licensePlate : '',
+      typeCarID : '',
+      brand : '',
+      fuelType : '',
+      Owner : '',
+      companyID : '',
+      nameCompany : '',
+      capacity : '',
+      weight : '',
+      hourCar : '',
+      dateSend : date
+    };
+}
+
 
 
   handleChange = (field, e) => {
-    /*this.setState({
-      [field]: e.target.value
-    })*/
+    this.setState({[field]: e.target.value})
     console.log(e.target.value);
   }
+  handleClick = () => {
+    // console.log(this.state.licensePlate)
+    // console.log(this.state.type)
+    // console.log(this.state.brand)
+    // console.log(this.state.fuelType)
+    // console.log(this.state.nameCompany)
+    // console.log(this.state.capacity)
+    // console.log(this.state.weight)
+    // console.log(this.state.hourCar)
+
+    axios.post('http://localhost:5000/new',this.state)
+    .then(res => { console.log(res) })
+    console.log(this.state)
+
+  }
   render () {
-    const { Datafromapi } = this.state
     return (
       <Formatted>
         <NameProgram>
           <div className='Header'>
             <h1>
               <b>
-                Edit Vehicle
+                New Vehicle
               </b>
             </h1>
           </div>
@@ -216,46 +225,46 @@ class View extends Component {
             <div className='HeadTrucker'>
               <div className='Block' />
               <div className='TextHeader'>
-                <b>TRUCK INFORMATION </b>
+                <b>TRUCK INFORMATION</b>
               </div>
             </div>
             <div className='Article'>
               <Row>
-                <Input value={ Datafromapi.capacity }  onChange={(e)=> this.handleChange('LicensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
+                <Input onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
                 <Input onChange={(e)=> this.handleChange('Province', e) } s={6} type='select' label="Province" defaultValue='1'>
-                  <option value='1'>กรุงเทพ</option>
-                  <option value='2'>นนทบุรี</option>
-                  <option value='3'>ปราจีนบุรี</option>
+                  <option value='กรุงเทพ'>กรุงเทพ</option>
+                  <option value='นนทบุรี'>นนทบุรี</option>
+                  <option value='ปราจีนบุรี'>ปราจีนบุรี</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('Type', e) } type='select' label="Type" defaultValue='1'>
-                  <option value='4 ล้อทึบ'>4 ล้อทึบ</option>
-                  <option value='6 ล้อทึบ'>6 ล้อทึบ</option>
+                <Input s={6}  onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue='1'>
+                  <option value='2'>4 ล้อทึบ</option>
+                  <option value='1'>6 ล้อทึบ</option>
                 </Input>
-                <Input s={6} onChange={(e)=> this.handleChange('Brand', e) } type='select' label="Brand" defaultValue='1'>
-                  <option value='1'>Isuzu</option>
-                  <option value='2'>Ford</option>
-                  <option value='3'>Toyota</option>
-                  <option value='4'>Honda</option>
-                  <option value='5'>Volvo</option>
-                  <option value='6'>GMC</option>
-                  <option value='7'>Kenworth</option>
+                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" defaultValue='1'>
+                  <option value='Isuzu'>Isuzu</option>
+                  <option value='Ford'>Ford</option>
+                  <option value='Toyota'>Toyota</option>
+                  <option value='Honda'>Honda</option>
+                  <option value='Volvo'>Volvo</option>
+                  <option value='GMC'>GMC</option>
+                  <option value='Kenworth'>Kenworth</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('FuelType', e) } type='select' label="Fuel Type" defaultValue='1'>
-                  <option value='1'>Diesel</option>
-                  <option value='2'>Gasoline</option>
-                  <option value='3'>Methanol</option>
-                  <option value='4'>Natural Gas</option>
-                  <option value='5'>Hydrogen</option>
-                  <option value='6'>Biodiesel</option>
+                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='1'>
+                  <option value='Diesel'>Diesel</option>
+                  <option value='Gasoline'>Gasoline</option>
+                  <option value='Methanol'>Methanol</option>
+                  <option value='Natural Gas'>Natural Gas</option>
+                  <option value='Hydrogen'>Hydrogen</option>
+                  <option value='Biodiesel'>Biodiesel</option>
                 </Input>
                 <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" defaultValue='1'>
-                  <option value='1'>24 ชม. (จ-ส)</option>
-                  <option value='2'>8 ชม. (จ-ส)</option>
-                  <option value='3'>07.00-18.00</option>
+                  <option value='24 ชม. (จ-ส)'>24 ชม. (จ-ส)</option>
+                  <option value='8 ชม. (จ-ส)'>8 ชม. (จ-ส)</option>
+                  <option value='07.00-18.00'>07.00-18.00</option>
                 </Input>
               </Row>
 
@@ -270,15 +279,18 @@ class View extends Component {
             </div>
             <div className='Article' style={{ height : '4px' }}>
               <Row>
-                <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='1'>
-                  <option value='1'>Supplier</option>
-                  <option value='2'>นนทบุรี</option>
-                  <option value='3'>ปราจีนบุรี</option>
+                <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='Supplier'>
+                  <option value='Supplier'>Supplier</option>
+                  <option value='Supplier'>Supplier</option>
+                  <option value='Supplier'>Supplier</option>
                 </Input>
-                <Input onChange={(e)=> this.handleChange('OwnerCompany', e) } s={6} type='select' label="Owner Company" defaultValue='1'>
-                  <option value='1'>Dynamic Logistic</option>
-                  <option value='2'>นนทบุรี</option>
-                  <option value='3'>ปราจีนบุรี</option>
+                <Input onChange={(e)=> this.handleChange('companyID', e) } s={6} type='select' label="Owner Company" defaultValue='1'>
+                  <option value='1'>CPF</option>
+                  <option value='2'>Chia Tai (Seed)</option>
+                  <option value='3'>CPRAM</option>
+                  <option value='4'>Chia Tai (Fertilizer)</option>
+                  <option value='5'>KCP</option>
+                  <option value='6'>CPPC</option>
                 </Input>
               </Row>
             </div>
@@ -292,9 +304,8 @@ class View extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input value={ Datafromapi.company.nameCompany  } onChange={(e)=> this.handleChange('Capacity', e) }  s={6} className='grid-example' label="Capacity (Cubic Meters)" />
-                { console.log(Datafromapi.company) }
-                <Input onChange={(e)=> this.handleChange('Weight', e) }  s={6} className='grid-example' label="Weight (Tons)" />
+                <Input onChange={(e)=> this.handleChange('capacity', e) }  s={6} className='grid-example' label="Capacity (Cubic Meters)" />
+                <Input onChange={(e)=> this.handleChange('weight', e) }  s={6} className='grid-example' label="Weight (Kg.)" />
               </Row>
               <Row>
                 <Input onChange={(e)=> this.handleChange('cost', e) }  s={6} className='grid-example' label="Cost / Km. (THB) " />
@@ -316,7 +327,7 @@ class View extends Component {
           </div>
           <div className='Row'>
             <div className='Col'>
-              <Button color='warning' className='managebuttonsave'>SAVE</Button>
+              <Button color='warning' className='managebuttonsave' onClick={this.handleClick}>SAVE</Button>
               <Button className='managebuttoncancle'>CANCEL</Button>
             </div>
           </div>
@@ -326,4 +337,4 @@ class View extends Component {
   }
 }
 
-export default View
+export default New

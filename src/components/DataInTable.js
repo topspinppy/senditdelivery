@@ -50,16 +50,44 @@ const RootPaginations = styled.div`
 class DataInTable extends Component {
   state = {
     vehical: [],
-    lengthvehical: 0,
+    currentvalue : 0,
+    countvehical : 0
   }
   componentDidMount () {
-    Http.get('http://localhost:5000/vehical').then(res => {
-      this.setState({ lengthvehical: res.data.length })
+    Http.get(`http://localhost:5000/vehical/1`).then (res => {
       this.setState({ vehical: res.data })
     })
   }
-  render () {
-    const { vehical } = this.state
+  handlePagginate = (number) => {
+    this.setState({ currentvalue: number })
+    Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
+      this.setState({ vehical: res.data })
+    })
+  }
+  handlePagginatePrev = (number) => {
+    const Prev = number <= 1 ? this.state.currentvalue : this.state.currentvalue - 1;
+    console.log(Prev);
+    this.setState({ currentvalue : Prev })
+    Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
+      this.setState({ vehical: res.data })
+    })
+  }
+  handlePagginateNext = (number) => {
+    const NextPage = number > this.state.currentvalue ? this.state.currentvalue + 1 : this.state.currentvalue;
+    console.log(NextPage);
+    this.setState({ currentvalue : NextPage })
+    Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
+      this.setState({ vehical: res.data })
+    })
+  }
+  render () 
+  {
+    const { vehical, currentvalue } = this.state
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(vehical.length * 2 / 7); i++) 
+    {
+        pageNumbers.push(i);
+    }
     return (
       <div>
         <Borders>
@@ -87,7 +115,7 @@ class DataInTable extends Component {
                     <td><center>{vehicals.car.hourCar}</center></td>
                     <td><center>{vehicals.capacity}</center></td>
                     <td><center>{vehicals.car.weight}</center></td>
-                    <th className='actionfit'><Link to={`/view/${ index+1 }`}><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
+                    <th className='actionfit'><Link to={`/view/${index+1}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
                   </tr>
               ))
             }
@@ -96,19 +124,20 @@ class DataInTable extends Component {
         </Borders>
         <RootPaginations>
         <Pagination aria-label='Page navigation example'>
-          <PaginationItem disabled>
-            <PaginationLink previous href='#' />
+          <PaginationItem>
+            <PaginationLink previous onClick={() => this.handlePagginatePrev( currentvalue ) } />
           </PaginationItem>
           {
-            
-            <PaginationItem>
-              <PaginationLink href='#'>
-                  1
-              </PaginationLink>
-            </PaginationItem>
+              pageNumbers.map((pageNumbers) => (   
+                <PaginationItem>
+                  <PaginationLink onClick={() => this.handlePagginate( pageNumbers )} onChange={ this.handleActivePagination } >
+                      { pageNumbers }
+                  </PaginationLink>
+                </PaginationItem>
+              ))
           }
           <PaginationItem>
-            <PaginationLink next href='#' />
+            <PaginationLink next onClick={() => this.handlePagginateNext( pageNumbers.length ) } />
           </PaginationItem>
         </Pagination>
       </RootPaginations>
