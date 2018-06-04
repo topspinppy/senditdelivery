@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'reactstrap'
+import { Table, Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 import styled from 'styled-components'
 import { Link } from 'react-router'
+import Http from 'axios'
 
 const Borders = styled.div`
   margin:20px auto;
@@ -37,9 +38,28 @@ const Borders = styled.div`
 const ButtonNoRadiusWithStyled = styled(Button)`
   border-radius: 0;
 `
-
+const RootPaginations = styled.div`
+  .page-item.active .page-link 
+  {
+    z-index: 1;
+    color: #fff;
+    background-color: #FF9800;
+    border-color: #FF9800;
+  }
+`
 class DataInTable extends Component {
+  state = {
+    vehical: [],
+    lengthvehical: 0,
+  }
+  componentDidMount () {
+    Http.get('http://localhost:5000/vehical').then(res => {
+      this.setState({ lengthvehical: res.data.length })
+      this.setState({ vehical: res.data })
+    })
+  }
   render () {
+    const { vehical } = this.state
     return (
       <div>
         <Borders>
@@ -50,7 +70,6 @@ class DataInTable extends Component {
                 <th>Owner Company</th>
                 <th>License Plate</th>
                 <th>Type</th>
-                <th className='activitywidth'>Activity</th>
                 <th>Hours</th>
                 <th>Capacity (m3)</th>
                 <th>Weight (kg)</th>
@@ -58,42 +77,41 @@ class DataInTable extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope='row'><center>1</center></th>
-                <td><center>CPF</center></td>
-                <td><center>3กย-1121</center></td>
-                <td><center>6ล้อทึบ</center></td>
-                <td><center>Chill,Frozen,Ambient</center></td>
-                <td><center>24 ชม. (จ-ส)</center></td>
-                <td><center>395</center></td>
-                <td><center>1,900</center></td>
-                <th className='actionfit'><Link to='/view'><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
-              </tr>
-              <tr>
-                <th scope='row'><center>1</center></th>
-                <td><center>CPF</center></td>
-                <td><center>3กย-1121</center></td>
-                <td><center>6ล้อทึบ</center></td>
-                <td><center>Chill,Frozen,Ambient</center></td>
-                <td><center>24 ชม. (จ-ส)</center></td>
-                <td><center>395</center></td>
-                <td><center>1,900</center></td>
-                <th className='actionfit'><Link to='/view'><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
-              </tr>
-              <tr>
-                <th scope='row'><center>1</center></th>
-                <td><center>CPF</center></td>
-                <td><center>3กย-1121</center></td>
-                <td><center>6ล้อทึบ</center></td>
-                <td><center>Chill,Frozen,Ambient</center></td>
-                <td><center>24 ชม. (จ-ส)</center></td>
-                <td><center>395</center></td>
-                <td><center>1,900</center></td>
-                <th className='actionfit'><Link to='/view'><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
-              </tr>
+            {
+              vehical.map((vehicals, index) => (
+                  <tr key={index}>
+                    <th scope='row'><center>{ index + 1 }</center></th>
+                    <td><center>{vehicals.company.nameCompany}</center></td>
+                    <td><center>{vehicals.car.licensePlate}</center></td>
+                    <td><center>{vehicals.car.typeCar.nameTypeCar}</center></td>
+                    <td><center>{vehicals.car.hourCar}</center></td>
+                    <td><center>{vehicals.capacity}</center></td>
+                    <td><center>{vehicals.car.weight}</center></td>
+                    <th className='actionfit'><Link to={`/view/${ index+1 }`}><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
+                  </tr>
+              ))
+            }
             </tbody>
           </Table>
         </Borders>
+        <RootPaginations>
+        <Pagination aria-label='Page navigation example'>
+          <PaginationItem disabled>
+            <PaginationLink previous href='#' />
+          </PaginationItem>
+          {
+            
+            <PaginationItem>
+              <PaginationLink href='#'>
+                  1
+              </PaginationLink>
+            </PaginationItem>
+          }
+          <PaginationItem>
+            <PaginationLink next href='#' />
+          </PaginationItem>
+        </Pagination>
+      </RootPaginations>
       </div>
     )
   }

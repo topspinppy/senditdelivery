@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import imgcar from '../img/car.jpg'
 import { Input, Row } from 'react-materialize'
 import { Button } from 'reactstrap'
+import Http from 'axios'
 
 const Formatted = styled.div`
   display: flex;
@@ -153,7 +154,32 @@ const ButtonLayout = styled.div`
 
 class View extends Component {
   state = {
+    LicensePlate : '',
+    Province : '',
+    Type : '',
+    Brand : '',
+    FuelType : '',
+    Owner : '',
+    OwnerCompany : '',
+    Capacity : '',
+    Weight : '',
+    cost : '',
     name : 'test'
+  }
+
+  componentDidMount () {
+    Http.get('http://localhost:5000/vehical').then(res => {
+      this.setState({ lengthvehical: res.data.length })
+      this.setState({ vehical: res.data })
+    })
+  }
+
+
+  handleChange = (field, e) => {
+    /*this.setState({
+      [field]: e.target.value
+    })*/
+    console.log(e.target.value);
   }
   render () {
     return (
@@ -188,27 +214,27 @@ class View extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input placeholder="." value="d" s={6} className='grid-example' label="License Plate" />
-                <Input s={6} type='select' label="Province" defaultValue='2'>
+                <Input onChange={(e)=> this.handleChange('LicensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
+                <Input onChange={(e)=> this.handleChange('Province', e) } s={6} type='select' label="Province" defaultValue='2'>
                   <option value='1'>กรุงเทพ</option>
                   <option value='2'>นนทบุรี</option>
                   <option value='3'>ปราจีนบุรี</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6} type='select' label="Type" defaultValue='2'>
+                <Input s={6}  onChange={(e)=> this.handleChange('Type', e) } type='select' label="Type" defaultValue='2'>
                   <option value='1'>6 ล้อทึบ</option>
                   <option value='2'>นนทบุรี</option>
                   <option value='3'>ปราจีนบุรี</option>
                 </Input>
-                <Input s={6} type='select' label="Brand" defaultValue='2'>
+                <Input s={6} onChange={(e)=> this.handleChange('Brand', e) } type='select' label="Brand" defaultValue='2'>
                   <option value='1'>6 ล้อทึบ</option>
                   <option value='2'>นนทบุรี</option>
                   <option value='3'>ปราจีนบุรี</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6} type='select' label="Fuel Type" defaultValue='2'>
+                <Input s={6} onChange={(e)=> this.handleChange('FuelType', e) } type='select' label="Fuel Type" defaultValue='2'>
                   <option value='1'>6 ล้อทึบ</option>
                   <option value='2'>นนทบุรี</option>
                   <option value='3'>ปราจีนบุรี</option>
@@ -226,12 +252,12 @@ class View extends Component {
             </div>
             <div className='Article' style={{ height : '4px' }}>
               <Row>
-                <Input s={6} type='select' label="Type" defaultValue='2'>
+                <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='2'>
                   <option value='1'>6 ล้อทึบ</option>
                   <option value='2'>นนทบุรี</option>
                   <option value='3'>ปราจีนบุรี</option>
                 </Input>
-                <Input s={6} type='select' label="Brand" defaultValue='2'>
+                <Input onChange={(e)=> this.handleChange('OwnerCompany', e) } s={6} type='select' label="Owner Company" defaultValue='2'>
                   <option value='1'>6 ล้อทึบ</option>
                   <option value='2'>นนทบุรี</option>
                   <option value='3'>ปราจีนบุรี</option>
@@ -248,11 +274,11 @@ class View extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input placeholder="" s={6} className='grid-example' label="Capacity (Cubic Meters)" />
-                <Input placeholder="" s={6} className='grid-example' label="Weight (Tons)" />
+                <Input onChange={(e)=> this.handleChange('Capacity', e) } placeholder="" s={6} className='grid-example' label="Capacity (Cubic Meters)" />
+                <Input onChange={(e)=> this.handleChange('Weight', e) } placeholder="" s={6} className='grid-example' label="Weight (Tons)" />
               </Row>
               <Row>
-                <Input placeholder="" s={6} className='grid-example' label="Cost / Km. (THB) " />
+                <Input onChange={(e)=> this.handleChange('cost', e) } placeholder="" s={6} className='grid-example' label="Cost / Km. (THB) " />
                 <Input hidden s={6} />
               </Row>
             </div>

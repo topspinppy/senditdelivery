@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Container } from 'reactstrap'
 import styled from 'styled-components'
 import Menu from '../components/Menu'
-import Pagination from '../components/Paginations'
 import DataInTable from '../components/DataInTable'
 
 const RootAll = styled.div`
@@ -17,13 +16,16 @@ const RootAll = styled.div`
   }
 `
 class All extends Component {
+  state = {
+    length : 0
+  }
+  
   render () {
     return (
       <RootAll>
         <Container className='layout'>
           <Menu />
           <DataInTable />
-          <Pagination />
         </Container>
       </RootAll>
     )

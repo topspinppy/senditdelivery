@@ -69,51 +69,19 @@ class Menu extends Component {
           </AllCompanyDropdownwithStyled>
         </div>
         <div>
-          <DatePicker
-              customInput={<Date />}
-              selected={this.state.startDate}
-              onChange={this.handleChangeDate}
-          />
+
         </div>
         <div>
-          <Dropdown>
-            <DropdownToggle outline color='secondary'>
-              TYPE :
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+          
         </div>
         <div>
-          <Dropdown>
-            <DropdownToggle outline color='secondary'>
-              CAPACITY :
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+
         </div>
         <div>
-          <Dropdown>
-            <DropdownToggle outline color='secondary'>
-              WEIGHT :
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+
         </div>
         <div>
-          <Dropdown>
-            <DropdownToggle outline color='secondary'>
-              SORT :
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem><Link to='/view'> New Vehicles </Link></DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+          
         </div>
         <div>
           <Dropdown isOpen={this.state.dropdownMenu} toggle={this.ToggleMenu}>
