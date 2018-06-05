@@ -115,7 +115,7 @@ class DataInTable extends Component {
                     <td><center>{vehicals.car.hourCar}</center></td>
                     <td><center>{vehicals.capacity}</center></td>
                     <td><center>{vehicals.car.weight}</center></td>
-                    <th className='actionfit'><Link to={`/view/${index}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
+                    <th className='actionfit'><Link to={`/view/${((7*(currentvalue-1))+(index + 1))-1}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
                   </tr>
               ))
             }
