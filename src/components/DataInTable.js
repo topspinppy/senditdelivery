@@ -50,13 +50,17 @@ const RootPaginations = styled.div`
 class DataInTable extends Component {
   state = {
     vehical: [],
-    currentvalue : 0,
+    currentvalue : 1,
     countvehical : 0
   }
   componentDidMount () {
     Http.get(`http://localhost:5000/vehical/1`).then (res => {
       this.setState({ vehical: res.data })
     })
+    Http.get(`http://localhost:5000/vehical`).then (res => {
+      this.setState({ countvehical : res.data.length })
+    })
+    
   }
   handlePagginate = (number) => {
     this.setState({ currentvalue: number })
@@ -78,18 +82,22 @@ class DataInTable extends Component {
     this.setState({ currentvalue : NextPage })
     Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
+      console.log("number Next")
     })
   }
   render () 
   {
     const { vehical, currentvalue } = this.state
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(vehical.length * 2 / 7); i++) 
+    console.log(vehical.length)
+    for (let i = 1; i <= Math.ceil(this.state.countvehical / 7); i++) 
     {
         pageNumbers.push(i);
     }
     return (
+      
       <div>
+        {this.state.countvehical}
         <Borders>
           <Table responsive>
             <thead className='theadborder' size='md'>
@@ -108,14 +116,14 @@ class DataInTable extends Component {
             {
               vehical.map((vehicals, index) => (
                   <tr key={index}>
-                    <th scope='row'><center>{ 7(currentvalue-1)+(index + 1) }</center></th>
+                    <th scope='row'><center>{ 7*(currentvalue-1)+(index + 1) }</center></th>
                     <td><center>{vehicals.company.nameCompany}</center></td>
                     <td><center>{vehicals.car.licensePlate}</center></td>
                     <td><center>{vehicals.car.typeCar.nameTypeCar}</center></td>
                     <td><center>{vehicals.car.hourCar}</center></td>
                     <td><center>{vehicals.capacity}</center></td>
                     <td><center>{vehicals.car.weight}</center></td>
-                    <th className='actionfit'><Link to={`/view/${index}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
+                    <th className='actionfit'><Link to={`/view/${(7*(currentvalue-1)+(index + 1))-1}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
                   </tr>
               ))
             }

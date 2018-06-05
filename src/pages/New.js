@@ -231,17 +231,12 @@ class New extends Component {
             <div className='Article'>
               <Row>
                 <Input onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" required />
-                <Input onChange={(e)=> this.handleChange('Province', e) } s={6} type='select' label="Province" defaultValue='1' required>
-                  <option value='กรุงเทพ'>กรุงเทพ</option>
-                  <option value='นนทบุรี'>นนทบุรี</option>
-                  <option value='ปราจีนบุรี'>ปราจีนบุรี</option>
-                </Input>
-              </Row>
-              <Row>
                 <Input s={6}  onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue='1' required>
                   <option value='2'>4 ล้อทึบ</option>
                   <option value='1'>6 ล้อทึบ</option>
                 </Input>
+              </Row>
+              <Row>
                 <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" defaultValue='1' required>
                   <option value='Isuzu'>Isuzu</option>
                   <option value='Ford'>Ford</option>
@@ -251,8 +246,6 @@ class New extends Component {
                   <option value='GMC'>GMC</option>
                   <option value='Kenworth'>Kenworth</option>
                 </Input>
-              </Row>
-              <Row>
                 <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='1' required>
                   <option value='Diesel'>Diesel</option>
                   <option value='Gasoline'>Gasoline</option>
@@ -261,11 +254,14 @@ class New extends Component {
                   <option value='Hydrogen'>Hydrogen</option>
                   <option value='Biodiesel'>Biodiesel</option>
                 </Input>
+              </Row>
+              <Row>
                 <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" defaultValue='1' required>
                   <option value='24 ชม. (จ-ส)'>24 ชม. (จ-ส)</option>
                   <option value='8 ชม. (จ-ส)'>8 ชม. (จ-ส)</option>
                   <option value='07.00-18.00'>07.00-18.00</option>
                 </Input>
+                <Input type="hidden" />
               </Row>
 
             </div>
@@ -306,10 +302,6 @@ class New extends Component {
               <Row>
                 <Input onChange={(e)=> this.handleChange('capacity', e) }  s={6} className='grid-example' label="Capacity (Cubic Meters)" required />
                 <Input onChange={(e)=> this.handleChange('weight', e) }  s={6} className='grid-example' label="Weight (Kg.)" required />
-              </Row>
-              <Row>
-                <Input onChange={(e)=> this.handleChange('cost', e) }  s={6} className='grid-example' label="Cost / Km. (THB) " required />
-                <Input hidden s={6} />
               </Row>
             </div>
           </div>
