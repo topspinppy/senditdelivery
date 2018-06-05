@@ -179,6 +179,7 @@ class View extends Component {
       this.setState({ weight : this.state.Datafromapi.car.weight })
       this.setState({ typeCarID : this.state.Datafromapi.car.typeCar.nameTypeCar })
       this.setState({ brand : this.state.Datafromapi.car.brand })
+      this.setState({ fuelType : this.state.Datafromapi.car.fuelType })
     })
   }
   handleClick = () => {
@@ -237,11 +238,11 @@ class View extends Component {
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue='1'>
+                <Input s={6} onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue={ this.state.typeCarID === "4 ล้อทึบ" ? '1' : '2' }>
                   <option value='1'>4 ล้อทึบ</option>
                   <option value='2'>6 ล้อทึบ</option>
                 </Input>
-                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" defaultValue='1'>
+                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" >
                   <option value='1'>Isuzu</option>
                   <option value='2'>Ford</option>
                   <option value='3'>Toyota</option>
@@ -252,7 +253,7 @@ class View extends Component {
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='1'>
+                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='2'>
                   <option value='1'>Diesel</option>
                   <option value='2'>Gasoline</option>
                   <option value='3'>Methanol</option>

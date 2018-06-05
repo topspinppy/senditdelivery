@@ -50,7 +50,7 @@ const RootPaginations = styled.div`
 class DataInTable extends Component {
   state = {
     vehical: [],
-    currentvalue : 0,
+    currentvalue : 1,
     countvehical : 0
   }
   componentDidMount () {
@@ -108,14 +108,14 @@ class DataInTable extends Component {
             {
               vehical.map((vehicals, index) => (
                   <tr key={index}>
-                    <th scope='row'><center>{ index + 1 }</center></th>
+                    <th scope='row'><center>{ (7*(currentvalue-1))+(index + 1) }</center></th>
                     <td><center>{vehicals.company.nameCompany}</center></td>
                     <td><center>{vehicals.car.licensePlate}</center></td>
                     <td><center>{vehicals.car.typeCar.nameTypeCar}</center></td>
                     <td><center>{vehicals.car.hourCar}</center></td>
                     <td><center>{vehicals.capacity}</center></td>
                     <td><center>{vehicals.car.weight}</center></td>
-                    <th className='actionfit'><Link to={`/view/${index+1}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
+                    <th className='actionfit'><Link to={`/view/${index}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
                   </tr>
               ))
             }
