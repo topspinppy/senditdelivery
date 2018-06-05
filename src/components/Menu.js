@@ -37,13 +37,8 @@ class Menu extends Component {
   }
   ToggleMenu = () => {
     this.setState({ 
-      dropdownMenu: !this.state.dropdownMenu 
+      dropdownMenu: !this.state.dropdownMenu
     })
-  }
-  handleChangeDate = (date) => {
-    this.setState({
-      startDate: date
-    });
   }
   render () {
     return (

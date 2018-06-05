@@ -230,19 +230,19 @@ class New extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
-                <Input onChange={(e)=> this.handleChange('Province', e) } s={6} type='select' label="Province" defaultValue='1'>
+                <Input onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" required />
+                <Input onChange={(e)=> this.handleChange('Province', e) } s={6} type='select' label="Province" defaultValue='1' required>
                   <option value='กรุงเทพ'>กรุงเทพ</option>
                   <option value='นนทบุรี'>นนทบุรี</option>
                   <option value='ปราจีนบุรี'>ปราจีนบุรี</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6}  onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue='1'>
+                <Input s={6}  onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue='1' required>
                   <option value='2'>4 ล้อทึบ</option>
                   <option value='1'>6 ล้อทึบ</option>
                 </Input>
-                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" defaultValue='1'>
+                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" defaultValue='1' required>
                   <option value='Isuzu'>Isuzu</option>
                   <option value='Ford'>Ford</option>
                   <option value='Toyota'>Toyota</option>
@@ -253,7 +253,7 @@ class New extends Component {
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='1'>
+                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='1' required>
                   <option value='Diesel'>Diesel</option>
                   <option value='Gasoline'>Gasoline</option>
                   <option value='Methanol'>Methanol</option>
@@ -261,7 +261,7 @@ class New extends Component {
                   <option value='Hydrogen'>Hydrogen</option>
                   <option value='Biodiesel'>Biodiesel</option>
                 </Input>
-                <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" defaultValue='1'>
+                <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" defaultValue='1' required>
                   <option value='24 ชม. (จ-ส)'>24 ชม. (จ-ส)</option>
                   <option value='8 ชม. (จ-ส)'>8 ชม. (จ-ส)</option>
                   <option value='07.00-18.00'>07.00-18.00</option>
@@ -279,12 +279,12 @@ class New extends Component {
             </div>
             <div className='Article' style={{ height : '4px' }}>
               <Row>
-                <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='Supplier'>
+                <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='Supplier' required>
                   <option value='Supplier'>Supplier</option>
                   <option value='Supplier'>Supplier</option>
                   <option value='Supplier'>Supplier</option>
                 </Input>
-                <Input onChange={(e)=> this.handleChange('companyID', e) } s={6} type='select' label="Owner Company" defaultValue='1'>
+                <Input onChange={(e)=> this.handleChange('companyID', e) } s={6} type='select' label="Owner Company" defaultValue='1' required>
                   <option value='1'>CPF</option>
                   <option value='2'>Chia Tai (Seed)</option>
                   <option value='3'>CPRAM</option>
@@ -304,11 +304,11 @@ class New extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input onChange={(e)=> this.handleChange('capacity', e) }  s={6} className='grid-example' label="Capacity (Cubic Meters)" />
-                <Input onChange={(e)=> this.handleChange('weight', e) }  s={6} className='grid-example' label="Weight (Kg.)" />
+                <Input onChange={(e)=> this.handleChange('capacity', e) }  s={6} className='grid-example' label="Capacity (Cubic Meters)" required />
+                <Input onChange={(e)=> this.handleChange('weight', e) }  s={6} className='grid-example' label="Weight (Kg.)" required />
               </Row>
               <Row>
-                <Input onChange={(e)=> this.handleChange('cost', e) }  s={6} className='grid-example' label="Cost / Km. (THB) " />
+                <Input onChange={(e)=> this.handleChange('cost', e) }  s={6} className='grid-example' label="Cost / Km. (THB) " required />
                 <Input hidden s={6} />
               </Row>
             </div>
