@@ -54,13 +54,17 @@ class DataInTable extends Component {
     countvehical : 0
   }
   componentDidMount () {
-    Http.get(`http://localhost:5000/vehical/1`).then (res => {
+    Http.get(`http://163.44.196.159/vehical/1`).then (res => {
       this.setState({ vehical: res.data })
     })
+    Http.get(`http://163.44.196.159/vehical`).then (res => {
+      this.setState({ countvehical : res.data.length })
+    })
+    
   }
   handlePagginate = (number) => {
     this.setState({ currentvalue: number })
-    Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
+    Http.get(`http://163.44.196.159/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
     })
   }
@@ -68,7 +72,7 @@ class DataInTable extends Component {
     const Prev = number <= 1 ? this.state.currentvalue : this.state.currentvalue - 1;
     console.log(Prev);
     this.setState({ currentvalue : Prev })
-    Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
+    Http.get(`http://163.44.196.159/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
     })
   }
@@ -76,7 +80,7 @@ class DataInTable extends Component {
     const NextPage = number > this.state.currentvalue ? this.state.currentvalue + 1 : this.state.currentvalue;
     console.log(NextPage);
     this.setState({ currentvalue : NextPage })
-    Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
+    Http.get(`http://163.44.196.159/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
     })
   }
@@ -84,11 +88,13 @@ class DataInTable extends Component {
   {
     const { vehical, currentvalue } = this.state
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(vehical.length * 2 / 7); i++) 
+    console.log(vehical.length)
+    for (let i = 1; i <= Math.ceil(this.state.countvehical / 7); i++) 
     {
         pageNumbers.push(i);
     }
     return (
+      
       <div>
         <Borders>
           <Table responsive>
@@ -108,14 +114,14 @@ class DataInTable extends Component {
             {
               vehical.map((vehicals, index) => (
                   <tr key={index}>
-                    <th scope='row'><center>{ (7*(currentvalue-1))+(index + 1) }</center></th>
+                    <th scope='row'><center>{ 7*(currentvalue-1)+(index + 1) }</center></th>
                     <td><center>{vehicals.company.nameCompany}</center></td>
                     <td><center>{vehicals.car.licensePlate}</center></td>
                     <td><center>{vehicals.car.typeCar.nameTypeCar}</center></td>
                     <td><center>{vehicals.car.hourCar}</center></td>
                     <td><center>{vehicals.capacity}</center></td>
                     <td><center>{vehicals.car.weight}</center></td>
-                    <th className='actionfit'><Link to={`/view/${((7*(currentvalue-1))+(index + 1))-1}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
+                    <th className='actionfit'><Link to={`/view/${(7*(currentvalue-1)+(index + 1))-1}`} id={ index }><ButtonNoRadiusWithStyled color='warning'>View</ButtonNoRadiusWithStyled></Link></th>
                   </tr>
               ))
             }
@@ -124,9 +130,9 @@ class DataInTable extends Component {
         </Borders>
         <RootPaginations>
         <Pagination aria-label='Page navigation example'>
-          <PaginationItem>
+          {/* <PaginationItem>
             <PaginationLink previous onClick={() => this.handlePagginatePrev( currentvalue ) } />
-          </PaginationItem>
+          </PaginationItem> */}
           {
               pageNumbers.map((pageNumbers) => (   
                 <PaginationItem>
@@ -136,9 +142,9 @@ class DataInTable extends Component {
                 </PaginationItem>
               ))
           }
-          <PaginationItem>
+          {/* <PaginationItem>
             <PaginationLink next onClick={() => this.handlePagginateNext( pageNumbers.length ) } />
-          </PaginationItem>
+          </PaginationItem> */}
         </Pagination>
       </RootPaginations>
       </div>

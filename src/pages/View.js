@@ -5,6 +5,8 @@ import { Input, Row } from 'react-materialize'
 import { Button } from 'reactstrap'
 import { Link } from 'react-router'
 import Http from 'axios'
+import swal from 'sweetalert';
+
 
 const Formatted = styled.div`
   display: flex;
@@ -35,6 +37,17 @@ const Formatted = styled.div`
     width: 164px;
     margin-right: 13px;
     border-radius: inherit;
+  }
+  .input-field label {
+    transition: null;
+    transform: null;
+  }
+  .input-field label:not(.label-icon).active {
+    -webkit-transform: null;
+    transform: null;
+  }
+  .inputanimation {
+    transition: null;
   }
 }
 `
@@ -165,6 +178,7 @@ class View extends Component {
     weight : 0,
     hourCar : '',
     Index : '',
+    checkType : '',
     Id : this.props.params.id,
     Datafromapi : []
   }
@@ -173,21 +187,63 @@ class View extends Component {
     // const that = this
     Http.get('http://localhost:5000/vehical/').then(res => {
       let dfromapi = res.data[this.state.Id];
+
       this.setState({ Datafromapi : dfromapi });
       this.setState({ licensePlate : this.state.Datafromapi.car.licensePlate })
       this.setState({ capacity : this.state.Datafromapi.capacity })
       this.setState({ weight : this.state.Datafromapi.car.weight })
       this.setState({ typeCarID : this.state.Datafromapi.car.typeCar.nameTypeCar })
       this.setState({ brand : this.state.Datafromapi.car.brand })
-      this.setState({ fuelType : this.state.Datafromapi.car.fuelType })
+      this.setState({ fuelType : this.state.Datafromapi.car.fuelType})
+      this.setState({ companyID : this.state.Datafromapi.company.nameCompany})
+      this.setState({ hourCar : this.state.Datafromapi.car.hourCar})
+
+      if(this.state.typeCarID.trim() === "4 ล้อทึบ"){ 
+        this.setState({typeCarID:"2"}) 
+      }else{ this.setState({typeCarID:"1"})}
+
+      if(this.state.companyID.trim() === "CPF"){
+        this.setState({companyID:"1"})
+      }
+      else if(this.state.companyID.trim() === "Chia Tai (Seed)"){this.setState({companyID:"2"})}
+      else if(this.state.companyID.trim() === "CPRAM"){this.setState({companyID:"3"})}
+      else if(this.state.companyID.trim() === "Chia Tai (Fertilizer)"){this.setState({companyID:"4"})}
+      else if(this.state.companyID.trim() === "KCP"){this.setState({companyID:"5"})}
+      else if(this.state.companyID.trim() === "CPPC"){this.setState({companyID:"6"})}
     })
   }
   handleClick = () => {
-    Http.post(`http://localhost:5000/edit/${this.state.Id}`,this.state)
-    .then(res => { 
-      console.log(res) 
-      window.location = "/" 
+    let id1 = parseInt(this.state.Id)+1
+    console.log(this.state.Id)
+    console.log(id1)
+
+    swal({
+      title: "ยืนยัน ?",
+      text: "คุณแน่ใจหรือไม่ว่าต้องการแก้ไข",
+      icon: "info",
+      buttons: true,
+      dangerMode: true,
     })
+    .then((willDelete) => {
+      if (willDelete) {
+        Http.post(`http://163.44.196.159/edit/${id1}`,this.state)
+        .then(res => { 
+          console.log(res)
+          window.location.href = "/" 
+        }).catch(error => {
+          swal("ขออภัยในความไม่สะดวก", "เกิดข้อขัดข้องบางประการ \n " + error, "warning");
+        })
+      }
+    })
+
+    /*Http.post(`http://localhost:5000/edit/${id1}`,this.state)
+    .then(res => { 
+      console.log(res)
+      swal("Update success!", "Update ข้อมูลสำเร็จ", "success");
+      window.location.href = "/" 
+    }).catch(error => {
+      swal("ขออภัยในความไม่สะดวก", "เกิดข้อขัดข้องบางประการ \n " + error, "warning");
+    })*/
   }
 
   handleChange = (field, e) => {
@@ -197,7 +253,6 @@ class View extends Component {
     console.log(e.target.value);
   }
   render () {
-    console.log(this.state.brand)
     return (
       <Formatted>
         <NameProgram>
@@ -205,6 +260,7 @@ class View extends Component {
             <h1>
               <b>
                 Edit Vehicle
+              
               </b>
             </h1>
           </div>
@@ -230,42 +286,40 @@ class View extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input value={ this.state.licensePlate } onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
-                <Input s={6} type='select' label="Province" defaultValue='1'>
-                  <option value='1'>กรุงเทพ</option>
-                  <option value='2'>นนทบุรี</option>
-                  <option value='3'>ปราจีนบุรี</option>
+                <Input className="inputanimation" placeholder="Placeholder" value={ this.state.licensePlate } onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
+                <Input s={6} onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" value = {this.state.typeCarID}>
+                  <option value='2'>4 ล้อทึบ</option>
+                  <option value='1'>6 ล้อทึบ</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" defaultValue={ this.state.typeCarID === "4 ล้อทึบ" ? '1' : '2' }>
-                  <option value='1'>4 ล้อทึบ</option>
-                  <option value='2'>6 ล้อทึบ</option>
+                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" value = {this.state.brand}>
+                  <option value='Isuzu'>Isuzu</option>
+                  <option value='Ford'>Ford</option>
+                  <option value='Toyota'>Toyota</option>
+                  <option value='Honda'>Honda</option>
+                  <option value='Volvo'>Volvo</option>
+                  <option value='GMC'>GMC</option>
+                  <option value='Kenworth'>Kenworth</option>
                 </Input>
-                <Input s={6} onChange={(e)=> this.handleChange('brand', e) } type='select' label="Brand" >
-                  <option value='1'>Isuzu</option>
-                  <option value='2'>Ford</option>
-                  <option value='3'>Toyota</option>
-                  <option value='4'>Honda</option>
-                  <option value='5'>Volvo</option>
-                  <option value='6'>GMC</option>
-                  <option value='7'>Kenworth</option>
+                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" value = {this.state.fuelType}>
+                  <option value='Diesel'>Diesel</option>
+                  <option value='Gasoline'>Gasoline</option>
+                  <option value='Methanol'>Methanol</option>
+                  <option value='Natural Gas'>Natural Gas</option>
+                  <option value='Hydrogen'>Hydrogen</option>
+                  <option value='Biodiesel'>Biodiesel</option>
                 </Input>
               </Row>
               <Row>
-                <Input s={6} onChange={(e)=> this.handleChange('fuelType', e) } type='select' label="Fuel Type" defaultValue='2'>
-                  <option value='1'>Diesel</option>
-                  <option value='2'>Gasoline</option>
-                  <option value='3'>Methanol</option>
-                  <option value='4'>Natural Gas</option>
-                  <option value='5'>Hydrogen</option>
-                  <option value='6'>Biodiesel</option>
+                <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" value = {this.state.hourCar}>
+                  <option value='24 ชม. (จ-ส)'>24 ชม. (จ-ส)</option>
+                  <option value='8 ชม. (จ-ส)'>8 ชม. (จ-ส)</option>
+                  <option value='8 ชม. (จ-อา)'>8 ชม. (จ-อา)</option>
+                  <option value='07.00-18.00'>07.00-18.00</option>
+                  <option value=''>ไม่ระบุเวลา</option>
                 </Input>
-                <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" defaultValue='1'>
-                  <option value='1'>24 ชม. (จ-ส)</option>
-                  <option value='2'>8 ชม. (จ-ส)</option>
-                  <option value='3'>07.00-18.00</option>
-                </Input>
+                <Input type="hidden" />
               </Row>
             </div>
           </div>
@@ -278,15 +332,18 @@ class View extends Component {
             </div>
             <div className='Article' style={{ height : '4px' }}>
               <Row>
-                <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='1'>
-                  <option value='1'>Supplier</option>
-                  <option value='2'>นนทบุรี</option>
-                  <option value='3'>ปราจีนบุรี</option>
+              <Input onChange={(e)=> this.handleChange('Owner', e) } s={6} type='select' label="Owner" defaultValue='Supplier' required>
+                  <option value='Supplier'>Supplier</option>
+                  <option value='Supplier'>Supplier</option>
+                  <option value='Supplier'>Supplier</option>
                 </Input>
-                <Input onChange={(e)=> this.handleChange('companyID', e) } s={6} type='select' label="Owner Company" defaultValue='1'>
-                  <option value='1'>Dynamic Logistic</option>
-                  <option value='2'>นนทบุรี</option>
-                  <option value='3'>ปราจีนบุรี</option>
+                <Input onChange={(e)=> this.handleChange('companyID', e) } s={6} type='select' label="Owner Company" value = {this.state.companyID} required>
+                  <option value='1'>CPF</option>
+                  <option value='2'>Chia Tai (Seed)</option>
+                  <option value='3'>CPRAM</option>
+                  <option value='4'>Chia Tai (Fertilizer)</option>
+                  <option value='5'>KCP</option>
+                  <option value='6'>CPPC</option>
                 </Input>
               </Row>
             </div>
@@ -302,10 +359,6 @@ class View extends Component {
               <Row>
                 <Input value={ this.state.capacity } onChange={(e)=> this.handleChange('capacity', e) }  s={6} className='grid-example' label="Capacity (Cubic Meters)" />
                 <Input value={ this.state.weight } onChange={(e)=> this.handleChange('weight', e) }  s={6} className='grid-example' label="Weight (Tons)" />
-              </Row>
-              <Row>
-                <Input onChange={(e)=> this.handleChange('cost', e) }  s={6} className='grid-example' label="Cost / Km. (THB) " />
-                <Input hidden s={6} />
               </Row>
             </div>
           </div>
