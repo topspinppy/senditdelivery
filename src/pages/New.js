@@ -4,6 +4,8 @@ import imgcar from '../img/car.jpg'
 import { Input, Row } from 'react-materialize'
 import { Button } from 'reactstrap'
 import axios from 'axios'
+import swal from 'sweetalert';
+
 
 const Formatted = styled.div`
   display: flex;
@@ -196,6 +198,8 @@ class New extends Component {
     .then(res => { 
       console.log(res) 
       window.location.href = "/"
+    }).catch(error => {
+      swal("ขออภัยในความไม่สะดวก", "เกิดข้อขัดข้องบางประการ \n " + error + "", "warning");
     })
     console.log(this.state)
 
@@ -262,7 +266,9 @@ class New extends Component {
                 <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" defaultValue='1' required>
                   <option value='24 ชม. (จ-ส)'>24 ชม. (จ-ส)</option>
                   <option value='8 ชม. (จ-ส)'>8 ชม. (จ-ส)</option>
+                  <option value='8 ชม. (จ-อา)'>8 ชม. (จ-อา)</option>
                   <option value='07.00-18.00'>07.00-18.00</option>
+                  <option value=''>ไม่ระบุเวลา</option>
                 </Input>
                 <Input type="hidden" />
               </Row>

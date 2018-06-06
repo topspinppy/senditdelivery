@@ -5,6 +5,8 @@ import { Input, Row } from 'react-materialize'
 import { Button } from 'reactstrap'
 import { Link } from 'react-router'
 import Http from 'axios'
+import swal from 'sweetalert';
+
 
 const Formatted = styled.div`
   display: flex;
@@ -214,10 +216,15 @@ class View extends Component {
     let id1 = parseInt(this.state.Id)+1
     console.log(this.state.Id)
     console.log(id1)
+
+    
     Http.post(`http://localhost:5000/edit/${id1}`,this.state)
     .then(res => { 
-      console.log(res) 
+      console.log(res)
+      swal("Update success!", "Update ข้อมูลสำเร็จ", "success");
       window.location.href = "/" 
+    }).catch(error => {
+      swal("ขออภัยในความไม่สะดวก", "เกิดข้อขัดข้องบางประการ \n " + error, "warning");
     })
   }
 
@@ -290,7 +297,9 @@ class View extends Component {
                 <Input s={6} onChange={(e)=> this.handleChange('hourCar', e) } type='select' label="Hour Car" value = {this.state.hourCar}>
                   <option value='24 ชม. (จ-ส)'>24 ชม. (จ-ส)</option>
                   <option value='8 ชม. (จ-ส)'>8 ชม. (จ-ส)</option>
+                  <option value='8 ชม. (จ-อา)'>8 ชม. (จ-อา)</option>
                   <option value='07.00-18.00'>07.00-18.00</option>
+                  <option value=''>ไม่ระบุเวลา</option>
                 </Input>
                 <Input type="hidden" />
               </Row>
