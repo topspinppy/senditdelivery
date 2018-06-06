@@ -185,6 +185,7 @@ class View extends Component {
     // const that = this
     Http.get('http://localhost:5000/vehical/').then(res => {
       let dfromapi = res.data[this.state.Id];
+
       this.setState({ Datafromapi : dfromapi });
       this.setState({ licensePlate : this.state.Datafromapi.car.licensePlate })
       this.setState({ capacity : this.state.Datafromapi.capacity })
@@ -210,7 +211,10 @@ class View extends Component {
     })
   }
   handleClick = () => {
-    Http.post(`http://localhost:5000/edit/${this.state.Id}`,this.state)
+    let id1 = parseInt(this.state.Id)+1
+    console.log(this.state.Id)
+    console.log(id1)
+    Http.post(`http://localhost:5000/edit/${id1}`,this.state)
     .then(res => { 
       console.log(res) 
       window.location.href = "/" 
@@ -231,6 +235,7 @@ class View extends Component {
             <h1>
               <b>
                 Edit Vehicle
+              
               </b>
             </h1>
           </div>

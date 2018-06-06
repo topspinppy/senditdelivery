@@ -96,7 +96,6 @@ class DataInTable extends Component {
     return (
       
       <div>
-        {this.state.countvehical}
         <Borders>
           <Table responsive>
             <thead className='theadborder' size='md'>
@@ -131,9 +130,9 @@ class DataInTable extends Component {
         </Borders>
         <RootPaginations>
         <Pagination aria-label='Page navigation example'>
-          <PaginationItem>
+          {/* <PaginationItem>
             <PaginationLink previous onClick={() => this.handlePagginatePrev( currentvalue ) } />
-          </PaginationItem>
+          </PaginationItem> */}
           {
               pageNumbers.map((pageNumbers) => (   
                 <PaginationItem>
@@ -143,9 +142,9 @@ class DataInTable extends Component {
                 </PaginationItem>
               ))
           }
-          <PaginationItem>
+          {/* <PaginationItem>
             <PaginationLink next onClick={() => this.handlePagginateNext( pageNumbers.length ) } />
-          </PaginationItem>
+          </PaginationItem> */}
         </Pagination>
       </RootPaginations>
       </div>
