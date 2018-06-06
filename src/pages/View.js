@@ -226,7 +226,7 @@ class View extends Component {
     })
     .then((willDelete) => {
       if (willDelete) {
-        Http.post(`http://163.44.196.159/edit/${id1}`,this.state)
+        Http.post(`http://163.44.196.159:5000/edit/${id1}`,this.state)
         .then(res => { 
           console.log(res)
           window.location.href = "/" 

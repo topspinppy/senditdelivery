@@ -54,17 +54,17 @@ class DataInTable extends Component {
     countvehical : 0
   }
   componentDidMount () {
-    Http.get(`http://163.44.196.159/vehical/1`).then (res => {
+    Http.get(`http://163.44.196.159:5000/vehical/1`).then (res => {
       this.setState({ vehical: res.data })
     })
-    Http.get(`http://163.44.196.159/vehical`).then (res => {
+    Http.get(`http://163.44.196.159:5000/vehical`).then (res => {
       this.setState({ countvehical : res.data.length })
     })
     
   }
   handlePagginate = (number) => {
     this.setState({ currentvalue: number })
-    Http.get(`http://163.44.196.159/vehical/${number}`).then (res => {
+    Http.get(`http://163.44.196.159:5000/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
     })
   }
@@ -72,7 +72,7 @@ class DataInTable extends Component {
     const Prev = number <= 1 ? this.state.currentvalue : this.state.currentvalue - 1;
     console.log(Prev);
     this.setState({ currentvalue : Prev })
-    Http.get(`http://163.44.196.159/vehical/${number}`).then (res => {
+    Http.get(`http://163.44.196.159:5000/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
     })
   }
@@ -80,7 +80,7 @@ class DataInTable extends Component {
     const NextPage = number > this.state.currentvalue ? this.state.currentvalue + 1 : this.state.currentvalue;
     console.log(NextPage);
     this.setState({ currentvalue : NextPage })
-    Http.get(`http://163.44.196.159/vehical/${number}`).then (res => {
+    Http.get(`http://163.44.196.159:5000/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
     })
   }

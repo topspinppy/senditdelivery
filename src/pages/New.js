@@ -203,7 +203,7 @@ class New extends Component {
     })
     .then((willAdd) => {
       if (willAdd) {
-        axios.post(`http://163.44.196.159/new`,this.state)
+        axios.post(`http://163.44.196.159:5000/new`,this.state)
         .then(res => { 
           console.log(res)
           window.location.href = "/" 
