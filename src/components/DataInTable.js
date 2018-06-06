@@ -82,7 +82,6 @@ class DataInTable extends Component {
     this.setState({ currentvalue : NextPage })
     Http.get(`http://localhost:5000/vehical/${number}`).then (res => {
       this.setState({ vehical: res.data })
-      console.log("number Next")
     })
   }
   render () 

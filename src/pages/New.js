@@ -193,7 +193,10 @@ class New extends Component {
     // console.log(this.state.hourCar)
 
     axios.post('http://localhost:5000/new',this.state)
-    .then(res => { console.log(res) })
+    .then(res => { 
+      console.log(res) 
+      window.location.href = "/"
+    })
     console.log(this.state)
 
   }

@@ -36,6 +36,17 @@ const Formatted = styled.div`
     margin-right: 13px;
     border-radius: inherit;
   }
+  .input-field label {
+    transition: null;
+    transform: null;
+  }
+  .input-field label:not(.label-icon).active {
+    -webkit-transform: null;
+    transform: null;
+  }
+  .inputanimation {
+    transition: null;
+  }
 }
 `
 
@@ -184,25 +195,25 @@ class View extends Component {
       this.setState({ companyID : this.state.Datafromapi.company.nameCompany})
       this.setState({ hourCar : this.state.Datafromapi.car.hourCar})
 
-      if(this.state.typeCarID.trim() == "4 ล้อทึบ"){ 
+      if(this.state.typeCarID.trim() === "4 ล้อทึบ"){ 
         this.setState({typeCarID:"2"}) 
       }else{ this.setState({typeCarID:"1"})}
 
-      if(this.state.companyID.trim() == "CPF"){
+      if(this.state.companyID.trim() === "CPF"){
         this.setState({companyID:"1"})
       }
-      else if(this.state.companyID.trim() == "Chia Tai (Seed)"){this.setState({companyID:"2"})}
-      else if(this.state.companyID.trim() == "CPRAM"){this.setState({companyID:"3"})}
-      else if(this.state.companyID.trim() == "Chia Tai (Fertilizer)"){this.setState({companyID:"4"})}
-      else if(this.state.companyID.trim() == "KCP"){this.setState({companyID:"5"})}
-      else if(this.state.companyID.trim() == "CPPC"){this.setState({companyID:"6"})}
+      else if(this.state.companyID.trim() === "Chia Tai (Seed)"){this.setState({companyID:"2"})}
+      else if(this.state.companyID.trim() === "CPRAM"){this.setState({companyID:"3"})}
+      else if(this.state.companyID.trim() === "Chia Tai (Fertilizer)"){this.setState({companyID:"4"})}
+      else if(this.state.companyID.trim() === "KCP"){this.setState({companyID:"5"})}
+      else if(this.state.companyID.trim() === "CPPC"){this.setState({companyID:"6"})}
     })
   }
   handleClick = () => {
-    Http.post(`http://localhost:5000/edit/${this.state.Id+1}`,this.state)
+    Http.post(`http://localhost:5000/edit/${this.state.Id}`,this.state)
     .then(res => { 
       console.log(res) 
-      window.location = "/" 
+      window.location.href = "/" 
     })
   }
 
@@ -245,7 +256,7 @@ class View extends Component {
             </div>
             <div className='Article'>
               <Row>
-                <Input value={ this.state.licensePlate } onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
+                <Input className="inputanimation" placeholder="Placeholder" value={ this.state.licensePlate } onChange={(e)=> this.handleChange('licensePlate', e) } placeholder="."  s={6} className='grid-example' label="License Plate" />
                 <Input s={6} onChange={(e)=> this.handleChange('typeCarID', e) } type='select' label="Type" value = {this.state.typeCarID}>
                   <option value='2'>4 ล้อทึบ</option>
                   <option value='1'>6 ล้อทึบ</option>
