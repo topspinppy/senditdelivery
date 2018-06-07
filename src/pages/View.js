@@ -185,7 +185,7 @@ class View extends Component {
 
   componentDidMount () {
     // const that = this
-    Http.get('http://localhost:5000/vehical/').then(res => {
+    Http.get('http://163.44.196.159:5000/vehical/').then(res => {
       let dfromapi = res.data[this.state.Id];
 
       this.setState({ Datafromapi : dfromapi });
